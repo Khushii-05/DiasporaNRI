@@ -94,9 +94,9 @@ export default function Associates() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-20">
-        <div className="mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="mb-12 sm:mb-12 sm:mb-16">
+          <h1 className="text-4xl sm:text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {getValue('associates_title', 'Our Professional Network')}
           </h1>
           <p className="text-xl text-gray-300">
@@ -105,9 +105,9 @@ export default function Associates() {
         </div>
 
         {/* Professionals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:p-6 sm:p-8 mb-12 sm:mb-12 sm:mb-16">
           {professionals.map((prof, idx) => (
-            <div key={idx} className="bg-slate-800/50 border border-blue-400/30 p-8 rounded-lg hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-500/20 transition">
+            <div key={idx} className="bg-slate-800/50 border border-blue-400/30 p-6 sm:p-6 sm:p-8 rounded-lg hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-500/20 transition">
               <h3 className="text-xl font-bold mb-2 text-blue-400">{prof.name}</h3>
               <p className="text-cyan-400 text-sm font-semibold mb-3">{prof.category}</p>
               <p className="text-gray-300">{prof.description}</p>
@@ -116,11 +116,11 @@ export default function Associates() {
         </div>
 
         {/* Pan-India Representation */}
-        <div className="bg-slate-800/50 border border-blue-400/30 p-12 rounded-lg mb-16">
+        <div className="bg-slate-800/50 border border-blue-400/30 p-12 rounded-lg mb-12 sm:mb-12 sm:mb-16">
           <h2 className="text-3xl font-bold mb-8 text-white">
             {getValue('associates_pan_title', 'Pan-India Representation')}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:p-6 sm:p-8">
             {[
               { title: 'State Representatives', desc: 'Coverage across all Indian states' },
               { title: 'District Coordinators', desc: 'Local coordination at district level' },
@@ -162,3 +162,5 @@ export default function Associates() {
     </div>
   );
 }
+
+

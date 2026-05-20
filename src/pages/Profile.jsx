@@ -353,22 +353,22 @@ export default function Profile() {
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-4 sm:px-6">
         <div className="text-center text-white">
-          <p className="text-xl mb-4">Please log in to view your profile</p>
+          <p className="text-lg sm:text-xl mb-4">Please log in to view your profile</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white py-20">
-      <div className="max-w-2xl mx-auto px-6">
-        <div className="bg-slate-800/50 border border-blue-400/30 rounded-lg p-8">
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white py-12 sm:py-20">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+        <div className="bg-slate-800/50 border border-blue-400/30 rounded-lg p-6 sm:p-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             My Profile
           </h1>
-          <p className="text-gray-400 mb-8">Update your account details and profile picture</p>
+          <p className="text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base">Update your account details and profile picture</p>
 
           {error && (
             <div className="bg-red-500/20 border border-red-400/30 text-red-400 p-4 rounded-lg mb-6">

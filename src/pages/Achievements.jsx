@@ -39,9 +39,9 @@ export default function Achievements() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-20">
-        <div className="mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="mb-12 sm:mb-16">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {getValue('achievements_title', 'Our Achievements')}
           </h1>
           <p className="text-xl text-gray-300">
@@ -64,7 +64,7 @@ export default function Achievements() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:p-6 sm:p-8 mb-20">
               {stats.map((stat, idx) => (
                 <div key={idx} className="bg-slate-800/50 border border-blue-400/30 p-6 rounded-lg text-center">
                   <div className="text-4xl font-bold text-blue-400 mb-2">{stat.number}</div>
@@ -73,7 +73,7 @@ export default function Achievements() {
               ))}
             </div>
 
-            <div className="mb-16">
+            <div className="mb-12 sm:mb-12 sm:mb-16">
               <h2 className="text-3xl font-bold mb-12 text-white">Timeline</h2>
               <div className="space-y-8">
                 {milestones.map((milestone, idx) => (
@@ -111,3 +111,5 @@ export default function Achievements() {
     </div>
   );
 }
+
+

@@ -21,9 +21,9 @@ export default function Investment() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-20">
-        <div className="mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="mb-12 sm:mb-12 sm:mb-16">
+          <h1 className="text-4xl sm:text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {getValue('investment_title', 'Investment Opportunities')}
           </h1>
           <p className="text-xl text-gray-300">
@@ -32,7 +32,7 @@ export default function Investment() {
         </div>
 
         {/* Coming Soon */}
-        <div className="bg-slate-800/50 border border-blue-400/30 p-16 rounded-lg text-center mb-16">
+        <div className="bg-slate-800/50 border border-blue-400/30 p-16 rounded-lg text-center mb-12 sm:mb-12 sm:mb-16">
           <h2 className="text-3xl font-bold mb-4 text-white">
             {getValue('investment_coming_title', 'Coming Soon')}
           </h2>
@@ -42,11 +42,11 @@ export default function Investment() {
         </div>
 
         {/* Investment Process */}
-        <div className="bg-slate-800/50 border border-blue-400/30 p-12 rounded-lg mb-16">
+        <div className="bg-slate-800/50 border border-blue-400/30 p-12 rounded-lg mb-12 sm:mb-12 sm:mb-16">
           <h2 className="text-3xl font-bold mb-8 text-white">
             {getValue('investment_process_title', 'Our Investment Process')}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:p-6 sm:p-8">
             {[
               { step: '01', title: 'Assessment', desc: 'Evaluate your investment goals and risk profile' },
               { step: '02', title: 'Analysis', desc: 'Detailed market and opportunity analysis' },
@@ -63,7 +63,7 @@ export default function Investment() {
         </div>
 
         {/* Risk Disclosure */}
-        <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-400/30 p-8 rounded-lg mb-16">
+        <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-400/30 p-6 sm:p-6 sm:p-8 rounded-lg mb-12 sm:mb-12 sm:mb-16">
           <h3 className="text-xl font-bold mb-4 text-yellow-400">
             {getValue('investment_disclosure_title', 'Important Disclosure')}
           </h3>
@@ -91,3 +91,5 @@ export default function Investment() {
     </div>
   );
 }
+
+

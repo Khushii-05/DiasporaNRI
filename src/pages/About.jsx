@@ -21,30 +21,30 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         {/* Header */}
-        <div className="mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+        <div className="mb-12 sm:mb-16">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {getValue('about_title', 'About DiasporaNRI')}
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-lg sm:text-xl text-gray-300">
             {getValue('about_subtitle', 'Connecting NRIs with their homeland through trusted professional support.')}
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          <div className="bg-slate-800/50 border border-blue-400/30 p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-4 text-blue-400">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
+          <div className="bg-slate-800/50 border border-blue-400/30 p-6 sm:p-8 rounded-lg">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-blue-400">
               {getValue('mission_title', 'Our Mission')}
             </h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
+            <p className="text-gray-300 leading-relaxed mb-4 text-sm sm:text-base">
               {getValue(
                 'mission_p1',
                 'To deliver trustworthy, transparent, and professional support services that help NRIs and overseas Indians stay confidently connected with their homeland.'
               )}
             </p>
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm sm:text-base">
               {getValue(
                 'mission_p2',
                 'We bridge the gap between overseas Indians and their native country by offering dependable coordination, verified assistance, and professional guidance.'

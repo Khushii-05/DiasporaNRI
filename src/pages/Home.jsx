@@ -24,25 +24,25 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 text-white">
-        <div className="grid grid-cols-1 gap-12 items-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-white">
+        <div className="grid grid-cols-1 gap-8 sm:gap-12 items-center">
           <div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
               {currentUser
                 ? getValue('hero_title_logged_in', `Welcome, ${currentUser.displayName || currentUser.email}!`)
                 : getValue('hero_title', 'Welcome to DiasporaNRI')}
             </h1>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
               {getValue(
                 'hero_body',
                 'DiasporaNRI.com is your trusted platform providing comprehensive support services for NRIs and global Indians. Manage your property, legal matters, banking, investments, family support, and more with professional assistance and peace of mind.'
               )}
             </p>
-            <div className="flex gap-4">
-              <a href="/contact" className="bg-gradient-to-r from-blue-500 to-cyan-500 px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <a href="/contact" className="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 sm:px-8 py-3 rounded-lg font-semibold text-center sm:text-left hover:shadow-lg hover:shadow-blue-500/50 transition">
                 {getValue('cta_primary', 'Get Started')}
               </a>
-              <a href="/about" className="border-2 border-blue-400 px-8 py-3 rounded-lg font-semibold hover:bg-blue-400 hover:text-white transition">
+              <a href="/about" className="border-2 border-blue-400 px-6 sm:px-8 py-3 rounded-lg font-semibold text-center sm:text-left hover:bg-blue-400 hover:text-white transition">
                 {getValue('cta_secondary', 'Learn More')}
               </a>
             </div>
