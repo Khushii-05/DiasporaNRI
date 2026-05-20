@@ -63,9 +63,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* Dynamic Custom Content Blocks */}
-      <DynamicContentSection content={content} page="home" />
     </div>
   );
 }
