@@ -1,26 +1,16 @@
 import { useState, useEffect } from 'react';
 import Icon from '../components/Icon';
 import { getAchievements } from '../services/achievementsService';
-import { getPageContent, mapBlocksToValues } from '../services/contentService';
+import { usePageContent } from '../hooks/usePageContent';
 
 export default function Achievements() {
   const [milestones, setMilestones] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [content, setContent] = useState({});
+  const { getValue } = usePageContent('achievements');
 
   useEffect(() => {
     loadAchievements();
-    loadContent();
   }, []);
-
-  const loadContent = async () => {
-    try {
-      const blocks = await getPageContent('achievements');
-      setContent(mapBlocksToValues(blocks));
-    } catch (error) {
-      // Use fallback text when content API is unavailable
-    }
-  };
 
   const loadAchievements = async () => {
     try {
@@ -35,7 +25,6 @@ export default function Achievements() {
   };
 
   const stats = [];
-  const getValue = (key, fallback) => content[key] || fallback;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">

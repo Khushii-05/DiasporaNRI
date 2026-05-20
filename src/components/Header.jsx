@@ -60,7 +60,7 @@ export default function Header() {
       <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
         {/* Logo - Left */}
         <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition flex-shrink-0">
-          <img src="/diaspora-nri-logo.png" alt="DiasporaNRI Logo" className="h-16 sm:h-20 md:h-28" />
+          <img src="/diaspora-nri-logo.png" alt="DiasporaNRI Logo" className="h-28 sm:h-32 md:h-40" />
         </Link>
         
         {/* Navigation - Center (hidden on mobile, shown on md+) */}

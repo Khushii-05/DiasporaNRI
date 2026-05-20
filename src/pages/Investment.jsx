@@ -1,23 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getPageContent, mapBlocksToValues } from '../services/contentService';
+import { usePageContent } from '../hooks/usePageContent';
 
 export default function Investment() {
-  const [content, setContent] = useState({});
-
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const blocks = await getPageContent('investment');
-        setContent(mapBlocksToValues(blocks));
-      } catch (error) {
-        // Use fallback text when content API is unavailable
-      }
-    };
-
-    loadContent();
-  }, []);
-
-  const getValue = (key, fallback) => content[key] || fallback;
+  const { content, getValue } = usePageContent('investment');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">

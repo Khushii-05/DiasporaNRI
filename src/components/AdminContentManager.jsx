@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useContentUpdate } from '../context/ContentUpdateContext';
 import Icon from './Icon';
 import {
   deleteContentBlock,
@@ -26,6 +27,7 @@ const PAGES = [
 
 export default function AdminContentManager() {
   const { currentUser } = useAuth();
+  const { triggerContentUpdate } = useContentUpdate();
   const [activePage, setActivePage] = useState('home');
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -113,6 +115,7 @@ export default function AdminContentManager() {
       await deleteContentBlock(blockId, token);
       setBlocks(prev => prev.filter(block => (block._id || block.id) !== blockId));
       setSuccess('Content deleted');
+      triggerContentUpdate(); // Trigger refresh on all pages
       setTimeout(() => setSuccess(''), 2000);
     } catch (err) {
       setError(err.message);
@@ -152,6 +155,7 @@ export default function AdminContentManager() {
       });
       setNewBlock({ key: '', value: '' });
       setSuccess('Content added');
+      triggerContentUpdate(); // Trigger refresh on all pages
       setTimeout(() => setSuccess(''), 2000);
     } catch (err) {
       setError(err.message);
@@ -211,6 +215,7 @@ export default function AdminContentManager() {
       setSuccess('Content restored successfully!');
       setShowBackupModal(false);
       setBackupName('');
+      triggerContentUpdate(); // Trigger refresh on all pages
       setTimeout(() => {
         loadBlocks();
       }, 500);

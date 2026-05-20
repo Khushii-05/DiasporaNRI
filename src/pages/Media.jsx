@@ -1,25 +1,16 @@
 import { useState, useEffect } from 'react';
+import Icon from '../components/Icon';
 import { getMedia } from '../services/mediaService';
-import { getPageContent, mapBlocksToValues } from '../services/contentService';
+import { usePageContent } from '../hooks/usePageContent';
 
 export default function Media() {
   const [mediaItems, setMediaItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [content, setContent] = useState({});
+  const { getValue } = usePageContent('media');
 
   useEffect(() => {
     loadMedia();
-    loadContent();
   }, []);
-
-  const loadContent = async () => {
-    try {
-      const blocks = await getPageContent('media');
-      setContent(mapBlocksToValues(blocks));
-    } catch (error) {
-      // Use fallback text when content API is unavailable
-    }
-  };
 
   const loadMedia = async () => {
     try {

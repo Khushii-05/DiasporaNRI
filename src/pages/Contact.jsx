@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Icon from '../components/Icon';
 import { submitContact } from '../services/contactService';
-import { getPageContent, mapBlocksToValues } from '../services/contentService';
+import { usePageContent } from '../hooks/usePageContent';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,22 +16,7 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState({});
-
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const blocks = await getPageContent('contact');
-        setContent(mapBlocksToValues(blocks));
-      } catch (error) {
-        // Use fallback text when content API is unavailable
-      }
-    };
-
-    loadContent();
-  }, []);
-
-  const getValue = (key, fallback) => content[key] || fallback;
+  const { getValue } = usePageContent('contact');
 
   const handleChange = (e) => {
     const { name, value } = e.target;

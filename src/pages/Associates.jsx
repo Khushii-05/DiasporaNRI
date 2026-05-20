@@ -1,23 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getPageContent, mapBlocksToValues } from '../services/contentService';
+import { usePageContent } from '../hooks/usePageContent';
 
 export default function Associates() {
-  const [content, setContent] = useState({});
-
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const blocks = await getPageContent('associates');
-        setContent(mapBlocksToValues(blocks));
-      } catch (error) {
-        // Use fallback text when content API is unavailable
-      }
-    };
-
-    loadContent();
-  }, []);
-
-  const getValue = (key, fallback) => content[key] || fallback;
+  const { content, getValue } = usePageContent('associates');
 
   const professionals = [
     {
