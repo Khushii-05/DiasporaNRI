@@ -1,0 +1,84 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production builds
+dist/
+dist-ssr/
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Backend environment & secrets
+server/.env
+server/.env.local
+server/.env.*.local
+server/serviceAccount.json
+server/firebase-key.json
+
+# Frontend environment
+.env
+.env.local
+.env.*.local
+
+# IDE directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+*.pem
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads (local testing only)
+uploads/
+public/uploads/
+
+# Environment configuration (except examples)
+.env.example
+!.env.example
+
+# Build cache
+.cache/
+.eslintcache
+
+# Yarn
+yarn-error.log
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Client environment variables
+src/.env
+src/.env.local
