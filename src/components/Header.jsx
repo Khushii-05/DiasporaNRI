@@ -57,10 +57,10 @@ export default function Header() {
 
   return (
     <header className="bg-slate-900 shadow-md sticky top-0 z-50">
-      <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+      <div className="flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3">
         {/* Logo - Left */}
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition flex-shrink-0">
-          <img src="/diaspora-nri-logo.png" alt="DiasporaNRI Logo" className="h-28 sm:h-32 md:h-40" />
+        <Link to="/" className="flex items-center gap-0 hover:opacity-80 transition flex-shrink-0">
+          <img src="/diaspora-nri-logo.png" alt="DiasporaNRI Logo" className="h-24 sm:h-32 md:h-40 object-contain" />
         </Link>
         
         {/* Navigation - Center (hidden on mobile, shown on md+) */}
