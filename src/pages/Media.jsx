@@ -6,7 +6,7 @@ import { usePageContent } from '../hooks/usePageContent';
 export default function Media() {
   const [mediaItems, setMediaItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { getValue } = usePageContent('media');
+  const { content, getValue } = usePageContent('media');
 
   useEffect(() => {
     loadMedia();

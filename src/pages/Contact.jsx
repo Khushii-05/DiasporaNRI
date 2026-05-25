@@ -100,7 +100,7 @@ export default function Contact() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <div className="mb-12 sm:mb-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
             {getValue('contact_title', 'Get In Touch')}
           </h1>
           <p className="text-xl text-gray-300">
@@ -112,7 +112,7 @@ export default function Contact() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-bold text-blue-400 mb-4">
+              <h3 className="text-xl font-bold text-blue-300 mb-4">
                 {getValue('contact_info_title', 'Contact Information')}
               </h3>
             </div>
@@ -139,7 +139,7 @@ export default function Contact() {
                 <h4 className="text-lg font-semibold text-white mb-2">{item.title}</h4>
                 <div className="space-y-1">
                   {item.details.map((detail, i) => (
-                    <p key={i} className="text-gray-400 text-sm">{detail}</p>
+                    <p key={i} className="text-gray-300 text-sm">{detail}</p>
                   ))}
                 </div>
               </div>
@@ -150,7 +150,7 @@ export default function Contact() {
               <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
               <div className="flex gap-4">
                 {['LinkedIn', 'Twitter', 'Facebook', 'Instagram'].map((social, idx) => (
-                  <a key={idx} href="#" className="text-blue-400 hover:text-cyan-400 transition">
+                  <a key={idx} href="#" className="text-blue-300 hover:text-blue-200 transition">
                     {social}
                   </a>
                 ))}
@@ -163,26 +163,26 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="bg-slate-800/50 border border-blue-400/30 p-8 rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">Full Name *</label>
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">Full Name *</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-slate-700/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-slate-900/60 border border-blue-400/30 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:outline-none transition"
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">Email *</label>
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">Email *</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-slate-700/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-slate-900/60 border border-blue-400/30 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:outline-none transition"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -190,50 +190,50 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">Phone</label>
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">Phone</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full bg-slate-700/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-slate-900/60 border border-blue-400/30 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:outline-none transition"
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">Subject *</label>
+                  <label className="block text-sm font-semibold text-gray-200 mb-2">Subject *</label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full bg-slate-700/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-slate-900/60 border border-blue-400/30 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:outline-none transition"
                     placeholder="How can we help?"
                   />
                 </div>
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm font-semibold text-gray-300 mb-2">Message *</label>
+                <label className="block text-sm font-semibold text-gray-200 mb-2">Message *</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows="6"
-                  className="w-full bg-slate-700/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition resize-none"
+                  className="w-full bg-slate-900/60 border border-blue-400/30 rounded-lg px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:outline-none transition resize-none"
                   placeholder="Tell us more about your inquiry..."
                 />
               </div>
 
               {/* Media Upload Section */}
-              <div className="mb-6 pb-6 border-b border-blue-400/20">
-                <label className="block text-sm font-semibold text-gray-300 mb-4">Attach Media (Optional)</label>
+              <div className="mb-6 pb-6 border-b border-blue-400/30">
+                <label className="block text-sm font-semibold text-gray-200 mb-4">Attach Media (Optional)</label>
                 <p className="text-xs text-gray-400 mb-4">Upload images, documents, or other files to support your inquiry</p>
                 
                 {mediaFile ? (
-                  <div className="bg-slate-700/30 border border-blue-400/20 rounded-lg p-4 mb-4">
+                  <div className="bg-slate-900/40 border border-blue-400/20 rounded-lg p-4 mb-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3 flex-1">
                         {mediaPreview ? (
@@ -241,12 +241,12 @@ export default function Contact() {
                             <img src={mediaPreview} alt="Preview" className="w-full h-full object-cover" />
                           </div>
                         ) : (
-                          <div className="w-12 h-12 rounded-lg bg-slate-600 flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-lg bg-slate-700 flex items-center justify-center">
                             <Icon name="attachment" className="w-5 h-5" />
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-medium text-white truncate">{mediaFile.name}</p>
+                          <p className="text-sm font-medium text-gray-200 truncate">{mediaFile.name}</p>
                           <p className="text-xs text-gray-400">{(mediaFile.size / 1024).toFixed(2)} KB</p>
                         </div>
                       </div>
@@ -278,7 +278,7 @@ export default function Contact() {
                     />
                     <label htmlFor="media-input" className="cursor-pointer">
                       <div className="text-3xl mb-2">📤</div>
-                      <p className="text-sm font-medium text-gray-300 mb-1">Click to upload or drag and drop</p>
+                      <p className="text-sm font-medium text-gray-200 mb-1">Click to upload or drag and drop</p>
                       <p className="text-xs text-gray-400">Images, PDFs, Documents (Max 10MB)</p>
                     </label>
                   </div>
@@ -301,7 +301,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 px-8 py-3 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-blue-500/50 transition disabled:opacity-50"
               >
                 {loading ? 'Sending...' : 'Send Message'}
               </button>
@@ -311,10 +311,10 @@ export default function Contact() {
 
         {/* Map Placeholder */}
         <div className="mt-16 bg-slate-800/50 border border-blue-400/30 rounded-lg overflow-hidden h-96">
-          <div className="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
             <div className="text-center">
-              <p className="text-gray-400">Interactive map will be displayed here</p>
-              <p className="text-gray-500 text-sm mt-2">Connect with our offices worldwide</p>
+              <p className="text-gray-300">Interactive map will be displayed here</p>
+              <p className="text-gray-300 text-sm mt-2">Connect with our offices worldwide</p>
             </div>
           </div>
         </div>

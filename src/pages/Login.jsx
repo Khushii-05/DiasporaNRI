@@ -84,14 +84,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-br from-palette-secondary via-palette-secondary to-palette-secondary flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        <div className="bg-slate-800/50 border border-blue-400/30 rounded-lg p-8">
+        <div className="bg-palette-accent1 border border-palette-primary/30 rounded-lg p-8">
           {!showForgotPassword ? (
             <>
               {/* Login Form */}
-              <h1 className="text-3xl font-bold text-white mb-2 text-center">Welcome Back</h1>
-              <p className="text-gray-400 text-center mb-8">Sign in to your DiasporaNRI account</p>
+              <h1 className="text-3xl font-bold text-slate-900 mb-2 text-center">Welcome Back</h1>
+              <p className="text-slate-900 text-center mb-8">Sign in to your DiasporaNRI account</p>
 
               {error && (
                 <div className="bg-red-500/20 border border-red-400/30 text-red-400 p-4 rounded-lg mb-6">
@@ -101,25 +101,25 @@ export default function Login() {
 
               <form onSubmit={handleEmailLogin} className="space-y-4">
                 <div>
-                  <label className="block text-gray-300 mb-2 font-medium">Email</label>
+                  <label className="block text-slate-900 mb-2 font-medium">Email</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-palette-secondary border border-palette-secondary text-slate-900 rounded-lg px-4 py-2 focus:border-palette-primary focus:outline-none transition"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-300 mb-2 font-medium">Password</label>
+                  <label className="block text-slate-900 mb-2 font-medium">Password</label>
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-palette-secondary border border-palette-secondary text-slate-900 rounded-lg px-4 py-2 focus:border-palette-primary focus:outline-none transition"
                     required
                   />
                 </div>
@@ -127,7 +127,7 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-palette-primary to-palette-primary text-slate-900 font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-palette-primary/50 transition disabled:opacity-50"
                 >
                   {loading ? 'Signing In...' : 'Sign In'}
                 </button>
@@ -135,22 +135,22 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setShowForgotPassword(true)}
-                  className="w-full text-cyan-400 hover:text-cyan-300 font-medium transition text-sm"
+                  className="w-full text-palette-primary hover:text-palette-primary font-medium transition text-sm"
                 >
                   Forgot your password?
                 </button>
               </form>
 
               <div className="my-6 flex items-center">
-                <div className="flex-1 border-t border-slate-600"></div>
-                <span className="px-3 text-gray-400">OR</span>
-                <div className="flex-1 border-t border-slate-600"></div>
+                <div className="flex-1 border-t border-palette-primary/30"></div>
+                <span className="px-3 text-slate-900">OR</span>
+                <div className="flex-1 border-t border-palette-primary/30"></div>
               </div>
 
               <button
                 onClick={handleGoogleLogin}
                 disabled={loading}
-                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition flex items-center justify-center gap-2 disabled:opacity-50 mb-4"
+                className="w-full bg-palette-secondary hover:bg-palette-secondary text-slate-900 font-bold py-2 rounded-lg transition flex items-center justify-center gap-2 disabled:opacity-50 mb-4"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -161,15 +161,15 @@ export default function Login() {
                 Sign in with Google
               </button>
 
-              <p className="text-center text-gray-400 mt-6 mb-6 text-sm">
-                <Link to="/admin-login" className="text-cyan-400 hover:text-blue-400 font-medium transition">
+              <p className="text-center text-slate-900 mt-6 mb-6 text-sm">
+                <Link to="/admin-login" className="text-palette-primary hover:text-palette-primary font-medium transition">
                   Admin Login
                 </Link>
               </p>
 
-              <p className="text-center text-gray-400">
+              <p className="text-center text-slate-900">
                 Don't have an account?{' '}
-                <Link to="/signup" className="text-blue-400 hover:text-cyan-400 font-medium transition">
+                <Link to="/signup" className="text-palette-primary hover:text-palette-primary font-medium transition">
                   Sign up
                 </Link>
               </p>
@@ -194,13 +194,13 @@ export default function Login() {
 
               <form onSubmit={handleForgotPassword} className="space-y-4">
                 <div>
-                  <label className="block text-gray-300 mb-2 font-medium">Email Address</label>
+                  <label className="block text-slate-900 mb-2 font-medium">Email Address</label>
                   <input
                     type="email"
                     value={resetEmail}
                     onChange={(e) => setResetEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
+                    className="w-full bg-palette-secondary border border-palette-secondary text-slate-900 rounded-lg px-4 py-2 focus:border-palette-primary focus:outline-none transition"
                     required
                   />
                 </div>
@@ -208,7 +208,7 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={loadingReset}
-                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-palette-primary to-palette-primary text-slate-900 font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-palette-primary/50 transition disabled:opacity-50"
                 >
                   {loadingReset ? 'Sending Email...' : 'Send Reset Link'}
                 </button>
@@ -221,7 +221,7 @@ export default function Login() {
                     setResetSuccess('');
                     setResetEmail('');
                   }}
-                  className="w-full text-cyan-400 hover:text-cyan-300 font-medium transition text-sm"
+                  className="w-full text-palette-primary hover:text-palette-primary font-medium transition text-sm"
                 >
                   Back to Login
                 </button>
