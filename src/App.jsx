@@ -18,6 +18,7 @@ import Signup from './pages/Signup';
 import AdminLogin from './pages/AdminLogin';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import Partnership from './pages/Partnership';
 import './App.css';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/partnership" element={<ProtectedRoute><Partnership /></ProtectedRoute>} />
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                 <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
               </Routes>

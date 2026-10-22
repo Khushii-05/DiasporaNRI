@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { apiBaseUrl } from '../services/apiClient';
 
 const AuthContext = createContext();
 
@@ -10,8 +11,6 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
   const [adminLoading, setAdminLoading] = useState(false);
-
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

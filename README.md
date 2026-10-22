@@ -207,8 +207,9 @@ DiasporaNRI/
    R2_PUBLIC_URL=https://your-r2-url.com
    ```
 
-   Create `src/config/.env.local` (if needed for Firebase config):
+   Create a root `.env.local` for the frontend build:
    ```env
+   VITE_API_BASE_URL=https://your-backend.example.com
    VITE_FIREBASE_API_KEY=your-api-key
    VITE_FIREBASE_AUTH_DOMAIN=your-app.firebaseapp.com
    VITE_FIREBASE_PROJECT_ID=your-project-id
@@ -260,6 +261,11 @@ npm run build
 ```
 
 **Backend** - No build needed, runs directly with Node.js
+
+For deployment, set `VITE_API_BASE_URL` to the public backend URL before
+building the frontend. Set the backend `CORS_ORIGIN` to the frontend URL;
+multiple origins may be provided as a comma-separated list. Never deploy
+`server/.env` or Firebase service-account files from the repository.
 
 ## 📊 Database Models
 
@@ -348,6 +354,9 @@ npm install -g vercel
 vercel
 ```
 
+Configure the frontend build command as `npm run build`, output directory as
+`dist`, and add the variables from `.env.example` in the hosting provider.
+
 ### Backend Deployment (Railway/Render)
 
 **Railway:**
@@ -361,8 +370,8 @@ vercel
 2. Connect GitHub repo
 3. Set build command: `cd server && npm install`
 4. Set start command: `cd server && npm start`
-5. Add environment variables
-6. Deploy
+5. Add `MONGODB_URI`, `CORS_ORIGIN`, Firebase Admin, and Cloudflare R2 variables
+6. Deploy and verify `/health` returns `{"ok":true}`
 
 ## 🧪 Testing
 

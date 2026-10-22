@@ -9,12 +9,18 @@ const { contactRouter } = require('./routes/contact');
 const { mediaRouter } = require('./routes/media');
 const { achievementsRouter } = require('./routes/achievements');
 const { profileRouter } = require('./routes/profile');
+const { partnershipRouter } = require('./routes/partnership');
+const { bookingRouter } = require('./routes/booking');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = Number(process.env.PORT) || 4000;
+const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173'
+  origin: allowedOrigins
 }));
 app.use(express.json());
 
@@ -28,6 +34,8 @@ app.use('/contact', contactRouter);
 app.use('/media', mediaRouter);
 app.use('/achievements', achievementsRouter);
 app.use('/profile', profileRouter);
+app.use('/partnership', partnershipRouter);
+app.use('/booking', bookingRouter);
 
 // Serve frontend static files
 const frontendDistPath = path.join(__dirname, '../dist');

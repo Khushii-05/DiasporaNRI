@@ -7,7 +7,7 @@ import GooeyNav from './GooeyNav';
 import DefaultProfilePicture from './DefaultProfilePicture';
 
 export default function Header() {
-  const { currentUser, logout, isAdmin, adminLoading, verifyAdmin } = useAuth();
+  const { currentUser, isAdmin, adminLoading, verifyAdmin } = useAuth();
   const [profilePicture, setProfilePicture] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -50,10 +50,7 @@ export default function Header() {
   ];
 
   const navLinks = ['/', '/about', '/services', '/associates', '/investment', '/achievements', '/media', '/contact'];
-
-  const handleLogout = async () => {
-    await logout();
-  };
+  const isAdminPending = currentUser && (adminLoading || isAdmin === null);
 
   return (
     <header className="bg-slate-900 shadow-md sticky top-0 z-50">
@@ -73,32 +70,35 @@ export default function Header() {
           {/* Auth Links (hidden on mobile) */}
           <div className="hidden sm:flex items-center gap-4">
             {currentUser ? (
-              isAdmin ? (
-                <Link 
-                  to="/dashboard" 
-                  className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-blue-500/50 transition"
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <Link 
-                  to="/profile" 
-                  className="flex items-center gap-2 hover:opacity-80 transition"
-                >
-                  <span className="text-gray-300 hover:text-white font-medium transition hidden sm:inline text-sm sm:text-base">Profile</span>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-slate-700 border border-blue-400">
-                    {profilePicture ? (
-                      <img 
-                        src={profilePicture} 
-                        alt="Profile" 
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                    ) : (
-                      <DefaultProfilePicture />
-                    )}
-                  </div>
-                </Link>
-              )
+              isAdminPending ? (
+                <div className="w-[122px] h-10" aria-hidden="true" />
+              ) : isAdmin === true ? (
+                  <Link 
+                    to="/dashboard" 
+                    className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-blue-500/50 transition"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link 
+                    to="/profile" 
+                    className="flex items-center gap-2 hover:opacity-80 transition"
+                  >
+                    <span className="text-gray-300 hover:text-white font-medium transition hidden sm:inline text-sm sm:text-base">Profile</span>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-slate-700 border border-blue-400">
+                      {profilePicture ? (
+                        <img 
+                          src={profilePicture} 
+                          alt="Profile" 
+                          className="w-full h-full rounded-full object-cover"
+                          onError={() => setProfilePicture('')}
+                        />
+                      ) : (
+                        <DefaultProfilePicture className="w-6 h-6 text-gray-400" />
+                      )}
+                    </div>
+                  </Link>
+                )
             ) : (
               <>
                 <Link 
@@ -129,7 +129,7 @@ export default function Header() {
           </button>
 
           {/* Mobile Profile Icon */}
-          {currentUser && !isAdmin && (
+          {currentUser && isAdmin === false && (
             <Link 
               to="/profile"
               className="md:hidden w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-slate-700 border border-blue-400"
@@ -139,11 +139,10 @@ export default function Header() {
                   src={profilePicture} 
                   alt="Profile" 
                   className="w-full h-full rounded-full object-cover"
+                  onError={() => setProfilePicture('')}
                 />
               ) : (
-                <div className="scale-75">
-                  <DefaultProfilePicture />
-                </div>
+                <DefaultProfilePicture className="w-5 h-5 text-gray-400" />
               )}
             </Link>
           )}
@@ -169,23 +168,25 @@ export default function Header() {
           {/* Mobile Auth Buttons */}
           <div className="flex sm:hidden flex-col gap-2 border-t border-slate-700 pt-4">
             {currentUser ? (
-              isAdmin ? (
-                <Link 
-                  to="/dashboard"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold text-center hover:shadow-lg hover:shadow-blue-500/50 transition text-sm"
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <Link 
-                  to="/profile"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold text-center hover:shadow-lg hover:shadow-blue-500/50 transition text-sm"
-                >
-                  My Profile
-                </Link>
-              )
+              isAdminPending ? (
+                  <div className="h-9" aria-hidden="true" />
+                ) : isAdmin === true ? (
+                  <Link 
+                    to="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold text-center hover:shadow-lg hover:shadow-blue-500/50 transition text-sm"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link 
+                    to="/profile"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold text-center hover:shadow-lg hover:shadow-blue-500/50 transition text-sm"
+                  >
+                    My Profile
+                  </Link>
+                )
             ) : (
               <>
                 <Link 

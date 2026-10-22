@@ -4,7 +4,13 @@ const { uploadToR2, deleteFromR2 } = require('../r2Client');
 const { verifyFirebaseToken } = require('../middleware/verifyFirebaseToken');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, callback) => {
+    callback(null, file.mimetype.startsWith('image/'));
+  }
+});
 
 // Upload profile picture
 router.post('/picture', verifyFirebaseToken, upload.single('profilePicture'), async (req, res) => {

@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Icon from '../components/Icon';
 import DefaultProfilePicture from '../components/DefaultProfilePicture';
-import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from 'firebase/auth';
+import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { db } from '../config/firebase';
-import { doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from '../services/apiClient';
 
 export default function Profile() {
   const { currentUser, logout } = useAuth();
@@ -34,11 +35,13 @@ export default function Profile() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [loadingPassword, setLoadingPassword] = useState(false);
 
-  // Delete account fields
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deletePassword, setDeletePassword] = useState('');
-  const [deleteError, setDeleteError] = useState('');
-  const [loadingDelete, setLoadingDelete] = useState(false);
+  // Password visibility toggles
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // Password section toggle
+  const [showPasswordSection, setShowPasswordSection] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -108,7 +111,7 @@ export default function Profile() {
       const formData = new FormData();
       formData.append('profilePicture', profilePictureFile);
 
-      const response = await fetch('http://localhost:4000/profile/picture', {
+      const response = await fetch(`${apiBaseUrl}/profile/picture`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -164,7 +167,7 @@ export default function Profile() {
       }
 
       const token = await currentUser.getIdToken();
-      const response = await fetch(`http://localhost:4000/profile/picture/${encodeURIComponent(profilePictureFileName)}`, {
+      const response = await fetch(`${apiBaseUrl}/profile/picture/${encodeURIComponent(profilePictureFileName)}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -290,63 +293,6 @@ export default function Profile() {
   const handleLogout = async () => {
     await logout();
     navigate('/');
-  };
-
-
-
-  const handleDeleteAccount = async () => {
-    setDeleteError('');
-
-    if (!deletePassword) {
-      setDeleteError('Password is required to delete your account');
-      return;
-    }
-
-    setLoadingDelete(true);
-
-    try {
-      // Re-authenticate user with password
-      const credential = EmailAuthProvider.credential(currentUser.email, deletePassword);
-      await reauthenticateWithCredential(currentUser, credential);
-
-      // Delete profile picture from R2 if it exists
-      if (profilePictureFileName) {
-        try {
-          const token = await currentUser.getIdToken();
-          await fetch(`http://localhost:4000/profile/picture/${encodeURIComponent(profilePictureFileName)}`, {
-            method: 'DELETE',
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-        } catch (storageError) {
-          // File might not exist, that's okay
-          console.log('Profile picture not found or already deleted');
-        }
-      }
-
-      // Delete user document from Firestore
-      await deleteDoc(doc(db, 'users', currentUser.uid));
-
-      // Delete user account from Firebase Authentication
-      await deleteUser(currentUser);
-
-      // Clear success modal and redirect
-      setDeletePassword('');
-      setShowDeleteModal(false);
-      await logout();
-      navigate('/');
-    } catch (error) {
-      if (error.code === 'auth/wrong-password') {
-        setDeleteError('Password is incorrect');
-      } else if (error.code === 'auth/requires-recent-login') {
-        setDeleteError('Please log in again before deleting your account');
-      } else {
-        setDeleteError('Error deleting account: ' + error.message);
-      }
-    } finally {
-      setLoadingDelete(false);
-    }
   };
 
 
@@ -521,160 +467,142 @@ export default function Profile() {
           </form>
 
           {/* Account Created Info */}
-          <div className="mt-8 pt-8 border-t border-slate-700">
+          <div className="mt-8 pt-8 border-t border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <p className="text-gray-400 text-sm">
               Account created: {currentUser.metadata?.creationTime ? new Date(currentUser.metadata.creationTime).toLocaleDateString() : 'Recently'}
             </p>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition text-sm"
+            >
+              Logout
+            </button>
           </div>
         </div>
 
-        {/* Password Section */}
-        <div className="bg-slate-800/50 border border-blue-400/30 rounded-lg p-8 mt-8">
-          <h2 className="text-2xl font-bold mb-6 text-white">Change Password</h2>
-          <p className="text-gray-400 mb-6">Update your password. You must provide your current password for security.</p>
+        {/* Password Section - Collapsible */}
+        <div className={`bg-slate-800/50 border border-blue-400/30 rounded-lg mt-8 ${showPasswordSection ? 'p-8' : 'p-4'}`}>
+          {showPasswordSection ? (
+            <>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-white">Change Password</h2>
+                <button
+                  onClick={() => setShowPasswordSection(!showPasswordSection)}
+                  className="text-blue-400 hover:text-blue-300 font-semibold text-sm transition flex items-center gap-2"
+                >
+                  See Less
+                  <Icon name="chevron-up" className="w-4 h-4" />
+                </button>
+              </div>
 
-          {passwordError && (
-            <div className="bg-red-500/20 border border-red-400/30 text-red-400 p-4 rounded-lg mb-6">
-              {passwordError}
-            </div>
-          )}
+              <p className="text-gray-400 mb-6">Update your password. You must provide your current password for security.</p>
 
-          {passwordSuccess && (
-            <div className="bg-green-500/20 border border-green-400/30 text-green-400 p-4 rounded-lg mb-6">
-              {passwordSuccess}
-            </div>
-          )}
-
-          <form onSubmit={handleUpdatePassword} className="space-y-4">
-            <div>
-              <label className="block text-gray-300 mb-2 font-medium">Current Password</label>
-              <input
-                type="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                placeholder="Enter your current password"
-                className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-300 mb-2 font-medium">New Password</label>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter your new password"
-                className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-300 mb-2 font-medium">Confirm New Password</label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your new password"
-                className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
-                required
-              />
-            </div>
-
-            <p className="text-gray-400 text-sm">Password must be at least 6 characters long</p>
-
-            <button
-              type="submit"
-              disabled={loadingPassword}
-              className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-2 rounded-lg transition disabled:opacity-50"
-            >
-              {loadingPassword ? 'Updating Password...' : 'Update Password'}
-            </button>
-          </form>
-
-          <p className="text-gray-400 text-sm mt-4">
-            Forgot your password?{' '}
-            <a href="/login" className="text-cyan-400 hover:text-cyan-300 font-medium transition">
-              Use the password reset link on the login page
-            </a>
-          </p>
-        </div>
-
-        {/* Logout Button */}
-        <div className="bg-slate-800/50 border border-red-400/30 rounded-lg p-8 mt-8">
-          <h2 className="text-2xl font-bold mb-4 text-white">Logout</h2>
-          <p className="text-gray-400 mb-6">Sign out of your account and return to the home page</p>
-          <button
-            onClick={handleLogout}
-            className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold py-2 rounded-lg transition"
-          >
-            Logout
-          </button>
-        </div>
-
-        {/* Delete Account Section */}
-        <div className="bg-slate-800/50 border border-red-500/50 rounded-lg p-8 mt-8">
-          <h2 className="text-2xl font-bold mb-4 text-red-400">Delete Account</h2>
-          <p className="text-gray-400 mb-6">Permanently delete your account and all associated data. This action cannot be undone.</p>
-          <button
-            onClick={() => setShowDeleteModal(true)}
-            className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-2 rounded-lg transition border border-red-500/30"
-          >
-            Delete Account Permanently
-          </button>
-        </div>
-
-        {/* Delete Account Confirmation Modal */}
-        {showDeleteModal && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-            <div className="bg-slate-800 border border-red-400/50 rounded-lg p-8 max-w-md w-full">
-              <h3 className="text-2xl font-bold text-red-400 mb-4">Delete Account?</h3>
-              <p className="text-gray-300 mb-6">
-                This will permanently delete your account, profile picture, and all associated data. This action cannot be undone.
-              </p>
-
-              {deleteError && (
+              {passwordError && (
                 <div className="bg-red-500/20 border border-red-400/30 text-red-400 p-4 rounded-lg mb-6">
-                  {deleteError}
+                  {passwordError}
                 </div>
               )}
 
-              <div className="mb-6">
-                <label className="block text-gray-300 mb-2 font-medium">Confirm with your password:</label>
-                <input
-                  type="password"
-                  value={deletePassword}
-                  onChange={(e) => setDeletePassword(e.target.value)}
-                  placeholder="Enter your password"
-                  className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-red-400 focus:outline-none transition"
-                  disabled={loadingDelete}
-                />
-              </div>
+              {passwordSuccess && (
+                <div className="bg-green-500/20 border border-green-400/30 text-green-400 p-4 rounded-lg mb-6">
+                  {passwordSuccess}
+                </div>
+              )}
 
-              <div className="flex gap-4">
+              <form onSubmit={handleUpdatePassword} className="space-y-4">
+                <div>
+                  <label className="block text-gray-300 mb-2 font-medium">Current Password</label>
+                  <div className="relative">
+                    <input
+                      type={showCurrentPassword ? "text" : "password"}
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                      placeholder="Enter your current password"
+                      className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 pr-10 focus:border-blue-400 focus:outline-none transition"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition"
+                    >
+                      <Icon name={showCurrentPassword ? "eye" : "eye-off"} className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2 font-medium">New Password</label>
+                  <div className="relative">
+                    <input
+                      type={showNewPassword ? "text" : "password"}
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="Enter your new password"
+                      className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 pr-10 focus:border-blue-400 focus:outline-none transition"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition"
+                    >
+                      <Icon name={showNewPassword ? "eye" : "eye-off"} className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 mb-2 font-medium">Confirm New Password</label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Confirm your new password"
+                      className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 pr-10 focus:border-blue-400 focus:outline-none transition"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition"
+                    >
+                      <Icon name={showConfirmPassword ? "eye" : "eye-off"} className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-gray-400 text-sm">Password must be at least 6 characters long</p>
+
                 <button
-                  onClick={() => {
-                    setShowDeleteModal(false);
-                    setDeletePassword('');
-                    setDeleteError('');
-                  }}
-                  disabled={loadingDelete}
-                  className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition disabled:opacity-50"
+                  type="submit"
+                  disabled={loadingPassword}
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-2 rounded-lg transition disabled:opacity-50"
                 >
-                  Cancel
+                  {loadingPassword ? 'Updating Password...' : 'Update Password'}
                 </button>
-                <button
-                  onClick={handleDeleteAccount}
-                  disabled={loadingDelete}
-                  className="flex-1 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-2 rounded-lg transition disabled:opacity-50"
-                >
-                  {loadingDelete ? 'Deleting...' : 'Delete Permanently'}
-                </button>
-              </div>
+              </form>
+
+              <p className="text-gray-400 text-sm mt-4">
+                Forgot your password?{' '}
+                <a href="/login" className="text-cyan-400 hover:text-cyan-300 font-medium transition">
+                  Use the password reset link on the login page
+                </a>
+              </p>
+            </>
+          ) : (
+            <div className="flex justify-center py-4">
+              <button
+                onClick={() => setShowPasswordSection(!showPasswordSection)}
+                className="text-blue-400 hover:text-blue-300 font-semibold text-sm transition flex items-center gap-2"
+              >
+                See More
+                <Icon name="chevron-down" className="w-4 h-4" />
+              </button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

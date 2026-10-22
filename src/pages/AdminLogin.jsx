@@ -3,12 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
+import Icon from '../components/Icon';
+import { apiBaseUrl } from '../services/apiClient';
 
 // Helper function to verify admin for a specific user (without relying on context)
 async function verifyAdminForUser(user) {
   if (!user) return false;
-  
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
   
   try {
     const token = await user.getIdToken();
@@ -34,6 +34,7 @@ async function verifyAdminForUser(user) {
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -164,14 +165,23 @@ export default function AdminLogin() {
 
             <div>
               <label className="block text-gray-300 mb-2 font-medium">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 focus:border-blue-400 focus:outline-none transition"
-                required
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-2 pr-10 focus:border-blue-400 focus:outline-none transition"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition"
+                >
+                  <Icon name={showPassword ? "eye" : "eye-off"} className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <button

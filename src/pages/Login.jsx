@@ -1,24 +1,28 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
+import Icon from '../components/Icon';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetError, setResetError] = useState('');
   const [resetSuccess, setResetSuccess] = useState('');
   const [loadingReset, setLoadingReset] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { currentUser } = useAuth();
 
   if (currentUser) {
-    navigate('/');
+    const redirectTo = location.state?.from || '/';
+    navigate(redirectTo);
     return null;
   }
 
@@ -29,7 +33,8 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/');
+      const redirectTo = location.state?.from || '/';
+      navigate(redirectTo);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -44,7 +49,8 @@ export default function Login() {
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
-      navigate('/');
+      const redirectTo = location.state?.from || '/';
+      navigate(redirectTo);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -84,14 +90,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-palette-secondary via-palette-secondary to-palette-secondary flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        <div className="bg-palette-accent1 border border-palette-primary/30 rounded-lg p-8">
+        <div className="bg-slate-800 border border-blue-500/30 rounded-lg p-8">
           {!showForgotPassword ? (
             <>
               {/* Login Form */}
-              <h1 className="text-3xl font-bold text-slate-900 mb-2 text-center">Welcome Back</h1>
-              <p className="text-slate-900 text-center mb-8">Sign in to your DiasporaNRI account</p>
+              <h1 className="text-3xl font-bold text-white mb-2 text-center">Welcome Back</h1>
+              <p className="text-gray-300 text-center mb-8">Sign in to your DiasporaNRI account</p>
 
               {error && (
                 <div className="bg-red-500/20 border border-red-400/30 text-red-400 p-4 rounded-lg mb-6">
@@ -101,33 +107,42 @@ export default function Login() {
 
               <form onSubmit={handleEmailLogin} className="space-y-4">
                 <div>
-                  <label className="block text-slate-900 mb-2 font-medium">Email</label>
+                  <label className="block text-gray-300 mb-2 font-medium">Email</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full bg-palette-secondary border border-palette-secondary text-slate-900 rounded-lg px-4 py-2 focus:border-palette-primary focus:outline-none transition"
+                    className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 placeholder-gray-500 focus:border-blue-500 focus:outline-none transition"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-900 mb-2 font-medium">Password</label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full bg-palette-secondary border border-palette-secondary text-slate-900 rounded-lg px-4 py-2 focus:border-palette-primary focus:outline-none transition"
-                    required
-                  />
+                  <label className="block text-gray-300 mb-2 font-medium">Password</label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 pr-10 placeholder-gray-500 focus:border-blue-500 focus:outline-none transition"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition"
+                    >
+                      <Icon name={showPassword ? "eye" : "eye-off"} className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-palette-primary to-palette-primary text-slate-900 font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-palette-primary/50 transition disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition disabled:opacity-50"
                 >
                   {loading ? 'Signing In...' : 'Sign In'}
                 </button>
@@ -135,22 +150,22 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setShowForgotPassword(true)}
-                  className="w-full text-palette-primary hover:text-palette-primary font-medium transition text-sm"
+                  className="w-full text-blue-400 hover:text-blue-300 font-medium transition text-sm"
                 >
                   Forgot your password?
                 </button>
               </form>
 
               <div className="my-6 flex items-center">
-                <div className="flex-1 border-t border-palette-primary/30"></div>
-                <span className="px-3 text-slate-900">OR</span>
-                <div className="flex-1 border-t border-palette-primary/30"></div>
+                <div className="flex-1 border-t border-slate-600"></div>
+                <span className="px-3 text-gray-400">OR</span>
+                <div className="flex-1 border-t border-slate-600"></div>
               </div>
 
               <button
                 onClick={handleGoogleLogin}
                 disabled={loading}
-                className="w-full bg-palette-secondary hover:bg-palette-secondary text-slate-900 font-bold py-2 rounded-lg transition flex items-center justify-center gap-2 disabled:opacity-50 mb-4"
+                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition flex items-center justify-center gap-2 disabled:opacity-50 mb-4"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -161,15 +176,15 @@ export default function Login() {
                 Sign in with Google
               </button>
 
-              <p className="text-center text-slate-900 mt-6 mb-6 text-sm">
-                <Link to="/admin-login" className="text-palette-primary hover:text-palette-primary font-medium transition">
+              <p className="text-center text-gray-400 mt-6 mb-6 text-sm">
+                <Link to="/admin-login" className="text-blue-400 hover:text-blue-300 font-medium transition">
                   Admin Login
                 </Link>
               </p>
 
-              <p className="text-center text-slate-900">
+              <p className="text-center text-gray-400">
                 Don't have an account?{' '}
-                <Link to="/signup" className="text-palette-primary hover:text-palette-primary font-medium transition">
+                <Link to="/signup" className="text-blue-400 hover:text-blue-300 font-medium transition">
                   Sign up
                 </Link>
               </p>
@@ -194,13 +209,13 @@ export default function Login() {
 
               <form onSubmit={handleForgotPassword} className="space-y-4">
                 <div>
-                  <label className="block text-slate-900 mb-2 font-medium">Email Address</label>
+                  <label className="block text-gray-300 mb-2 font-medium">Email Address</label>
                   <input
                     type="email"
                     value={resetEmail}
                     onChange={(e) => setResetEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full bg-palette-secondary border border-palette-secondary text-slate-900 rounded-lg px-4 py-2 focus:border-palette-primary focus:outline-none transition"
+                    className="w-full bg-slate-700 border border-slate-600 text-white rounded-lg px-4 py-2 placeholder-gray-500 focus:border-blue-500 focus:outline-none transition"
                     required
                   />
                 </div>
@@ -208,7 +223,7 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={loadingReset}
-                  className="w-full bg-gradient-to-r from-palette-primary to-palette-primary text-slate-900 font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-palette-primary/50 transition disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition disabled:opacity-50"
                 >
                   {loadingReset ? 'Sending Email...' : 'Send Reset Link'}
                 </button>
@@ -221,7 +236,7 @@ export default function Login() {
                     setResetSuccess('');
                     setResetEmail('');
                   }}
-                  className="w-full text-palette-primary hover:text-palette-primary font-medium transition text-sm"
+                  className="w-full text-blue-400 hover:text-blue-300 font-medium transition text-sm"
                 >
                   Back to Login
                 </button>

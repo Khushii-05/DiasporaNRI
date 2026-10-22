@@ -1,9 +1,7 @@
-import { apiRequest, apiRequestWithToken } from './apiClient';
+import { apiRequestWithToken, apiBaseUrl } from './apiClient';
 
 export async function submitContact(formData) {
   // formData is now FormData object with file, so don't stringify
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
-  
   try {
     const response = await fetch(`${apiBaseUrl}/contact`, {
       method: 'POST',

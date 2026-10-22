@@ -6,7 +6,10 @@ const { requireAdmin } = require('../middleware/requireAdmin');
 const { buildObjectKey, uploadToR2 } = require('../r2Client');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }
+});
 
 // Public: submit contact form with optional file upload
 router.post('/', upload.single('file'), async (req, res) => {
