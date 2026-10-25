@@ -2,6 +2,7 @@ const express = require('express');
 const Admin = require('../models/Admin');
 const { verifyFirebaseToken } = require('../middleware/verifyFirebaseToken');
 const { requireAdmin } = require('../middleware/requireAdmin');
+const { findActiveAdmin } = require('../services/adminService');
 
 const router = express.Router();
 
@@ -9,16 +10,8 @@ router.get('/check', verifyFirebaseToken, async (req, res) => {
   const { uid, email } = req.user;
 
   try {
-    // Normalize email to lowercase for comparison
-    const normalizedEmail = email ? email.toLowerCase() : null;
-    
-    let admin = await Admin.findOne({
-      isActive: true,
-      $or: [
-        { uid },
-        { email: normalizedEmail }
-      ]
-    }).lean();
+    const normalizedEmail = email ? email.trim().toLowerCase() : null;
+    let admin = await findActiveAdmin({ uid, email });
 
     // Debug log
     console.log(`[Admin Check] uid=${uid}, email=${normalizedEmail}, found=${!!admin}`);
@@ -62,10 +55,7 @@ router.post('/register', verifyFirebaseToken, async (req, res) => {
     
     // If there are existing admins, verify current user is admin
     if (adminCount > 0) {
-      const currentAdmin = await Admin.findOne({
-        isActive: true,
-        $or: [{ uid }, { email }]
-      }).lean();
+      const currentAdmin = await findActiveAdmin({ uid, email });
 
       if (!currentAdmin) {
         return res.status(403).json({ error: 'Admin access required to add new admins' });

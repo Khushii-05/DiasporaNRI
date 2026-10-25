@@ -1,4 +1,4 @@
-const Admin = require('../models/Admin');
+const { findActiveAdmin } = require('../services/adminService');
 
 async function requireAdmin(req, res, next) {
   const { uid, email } = req.user || {};
@@ -8,10 +8,7 @@ async function requireAdmin(req, res, next) {
   }
 
   try {
-    const admin = await Admin.findOne({
-      isActive: true,
-      $or: [{ uid }, { email }]
-    }).lean();
+    const admin = await findActiveAdmin({ uid, email });
 
     if (!admin) {
       return res.status(403).json({ error: 'Admin access required' });
