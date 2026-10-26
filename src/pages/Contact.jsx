@@ -285,15 +285,11 @@ export default function Contact() {
               },
               {
                 title: 'Phone',
-                details: ['+91-XXXX-XXXX-XXXX', 'Toll Free Support']
+                details: ['+91 9776682222']
               },
               {
                 title: 'Email',
-                details: ['support@diasporanri.com', 'info@diasporanri.com']
-              },
-              {
-                title: 'Website',
-                details: ['www.diasporanri.com', '24/7 Online Support']
+                details: ['support@diasporanri.com']
               }
             ].map((item, idx) => (
               <div key={idx} className="bg-slate-800/50 border border-blue-400/30 p-6 rounded-lg">
@@ -310,7 +306,7 @@ export default function Contact() {
             <div className="bg-slate-800/50 border border-blue-400/30 p-6 rounded-lg">
               <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
               <div className="flex gap-4">
-                {['LinkedIn', 'Twitter', 'Facebook', 'Instagram'].map((social, idx) => (
+                {['LinkedIn', 'X', 'Facebook', 'Instagram'].map((social, idx) => (
                   <a key={idx} href="#" className="text-blue-300 hover:text-blue-200 transition">
                     {social}
                   </a>
@@ -812,15 +808,6 @@ export default function Contact() {
           </div>
         )}
 
-        {/* Map Placeholder */}
-        <div className="mt-16 bg-slate-800/50 border border-blue-400/30 rounded-lg overflow-hidden h-96">
-          <div className="w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-gray-300">Interactive map will be displayed here</p>
-              <p className="text-gray-300 text-sm mt-2">Connect with our offices worldwide</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

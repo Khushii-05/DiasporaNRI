@@ -43,6 +43,7 @@
 
 .gooey-nav-container nav ul {
   display: flex;
+  flex-wrap: nowrap;
   gap: 1.5em;
   list-style: none;
   padding: 0;
@@ -51,6 +52,18 @@
   z-index: 3;
   color: white;
   text-shadow: 0 1px 1px hsl(205deg 30% 10% / 0.2);
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .gooey-nav-container nav ul {
+    gap: 0.25em;
+  }
+
+  .gooey-nav-container nav ul li a {
+    padding: 0.45em 0.5em;
+    font-size: 0.8rem;
+  }
 }
 
 .gooey-nav-container nav ul li {
@@ -73,7 +86,7 @@
 }
 
 /* Mobile Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .gooey-nav-container nav ul {
     gap: 0.75em;
   }
@@ -81,12 +94,6 @@
   .gooey-nav-container nav ul li a {
     padding: 0.5em 0.75em;
     font-size: 0.875rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .gooey-nav-container nav ul {
-    display: none;
   }
 }
 

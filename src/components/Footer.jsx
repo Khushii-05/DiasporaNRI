@@ -26,7 +26,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <p className="text-gray-400">Email: support@diasporanri.com</p>
-            <p className="text-gray-400">Website: www.diasporanri.com</p>
+            <p className="text-gray-400">Phone: +91 9776682222</p>
           </div>
         </div>
         <div className="border-t border-gray-700 pt-8 text-center text-gray-400">

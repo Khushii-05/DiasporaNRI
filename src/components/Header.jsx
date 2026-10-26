@@ -53,22 +53,22 @@ export default function Header() {
   const isAdminPending = currentUser && (adminLoading || isAdmin === null);
 
   return (
-    <header className="bg-slate-900 shadow-md sticky top-0 z-50">
-      <div className="flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3">
+    <header className="fixed inset-x-0 top-0 z-50 w-full bg-slate-900/95 shadow-md backdrop-blur-md">
+      <div className="flex min-h-20 items-center justify-between gap-2 px-2 py-2 sm:px-4 sm:py-3">
         {/* Logo - Left */}
-        <Link to="/" className="flex items-center gap-0 hover:opacity-80 transition flex-shrink-0">
-          <img src="/diaspora-nri-logo.png" alt="DiasporaNRI Logo" className="h-24 sm:h-32 md:h-40 object-contain" />
+        <Link to="/" className="flex min-w-0 flex-shrink-0 items-center gap-0 transition hover:opacity-80">
+          <img src="/diaspora-nri-logo.png" alt="DiasporaNRI Logo" className="h-16 w-auto object-contain sm:h-20 lg:h-24" />
         </Link>
         
-        {/* Navigation - Center (hidden on mobile, shown on md+) */}
-        <div className="hidden md:flex flex-1 justify-center">
+        {/* Navigation - Center (hidden on mobile and tablet) */}
+        <div className="hidden min-w-0 flex-1 justify-center overflow-hidden lg:flex">
           <GooeyNav items={navItems} navLinks={navLinks} />
         </div>
 
         {/* Auth Buttons + Hamburger - Right */}
-        <div className="flex items-center gap-2 sm:gap-4">
-          {/* Auth Links (hidden on mobile) */}
-          <div className="hidden sm:flex items-center gap-4">
+        <div className="flex flex-shrink-0 items-center gap-2 sm:gap-4">
+          {/* Auth Links (hidden on mobile and tablet) */}
+          <div className="hidden items-center gap-4 lg:flex">
             {currentUser ? (
               isAdminPending ? (
                 <div className="w-[122px] h-10" aria-hidden="true" />
@@ -120,7 +120,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-white hover:bg-slate-800 rounded-lg transition"
+            className="p-2 text-white transition hover:bg-slate-800 lg:hidden"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export default function Header() {
           {currentUser && isAdmin === false && (
             <Link 
               to="/profile"
-              className="md:hidden w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-slate-700 border border-blue-400"
+              className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-blue-400 bg-slate-700 lg:hidden"
             >
               {profilePicture ? (
                 <img 
@@ -151,7 +151,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-800 border-t border-slate-700 px-4 py-4">
+        <div className="bg-slate-800 border-t border-slate-700 px-4 py-4 lg:hidden">
           <nav className="flex flex-col gap-3 mb-4">
             {navItems.map((item, index) => (
               <Link
@@ -166,7 +166,7 @@ export default function Header() {
           </nav>
 
           {/* Mobile Auth Buttons */}
-          <div className="flex sm:hidden flex-col gap-2 border-t border-slate-700 pt-4">
+          <div className="flex flex-col gap-2 border-t border-slate-700 pt-4">
             {currentUser ? (
               isAdminPending ? (
                   <div className="h-9" aria-hidden="true" />

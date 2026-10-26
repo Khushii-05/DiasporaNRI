@@ -98,11 +98,9 @@ const SEED_DATA = {
     { key: 'contact_hq_title', value: 'Headquarters' },
     { key: 'contact_hq_details', value: 'Pan-India Office Network with Global Reach' },
     { key: 'contact_phone_title', value: 'Phone' },
-    { key: 'contact_phone_details', value: '+91-XXXX-XXXX-XXXX, Toll Free Support' },
+    { key: 'contact_phone_details', value: '+91 9776682222' },
     { key: 'contact_email_title', value: 'Email' },
-    { key: 'contact_email_details', value: 'support@diasporanri.com, info@diasporanri.com' },
-    { key: 'contact_website_title', value: 'Website' },
-    { key: 'contact_website_details', value: 'www.diasporanri.com, 24/7 Online Support' }
+    { key: 'contact_email_details', value: 'support@diasporanri.com' },
   ]
 };
 

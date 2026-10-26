@@ -28,7 +28,7 @@ function App() {
         <ContentUpdateProvider>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1">
+            <main className="flex-1 pt-20 lg:pt-32">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
