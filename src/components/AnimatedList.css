@@ -1,0 +1,122 @@
+.animated-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.animated-list__item {
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+  min-height: 7.25rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, rgba(51, 65, 85, 0.72), rgba(30, 41, 59, 0.72));
+  color: #f8fafc;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  animation: animated-list-enter 420ms ease both;
+  animation-delay: calc(var(--animated-list-index, 0) * 35ms);
+}
+
+.animated-list__item:hover,
+.animated-list__item:focus-visible,
+.animated-list__item--selected {
+  border-color: rgba(103, 232, 249, 0.65);
+  background: linear-gradient(90deg, rgba(30, 64, 175, 0.68), rgba(15, 118, 110, 0.5));
+  box-shadow: 0 8px 24px -16px rgba(34, 211, 238, 0.9);
+  outline: none;
+  transform: translateX(0.25rem);
+}
+
+.animated-list__index {
+  padding-top: 0.125rem;
+  color: #67e8f9;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.animated-list__content {
+  display: grid;
+  min-width: 0;
+  gap: 0.4rem;
+}
+
+.animated-list__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.animated-list__description {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.animated-list__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.45rem;
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+
+.animated-list__features span::before {
+  margin-right: 0.35rem;
+  color: #67e8f9;
+  content: '•';
+}
+
+.animated-list__arrow {
+  padding-top: 0.05rem;
+  color: #67e8f9;
+  font-size: 1.25rem;
+  transition: transform 180ms ease;
+}
+
+.animated-list__item:hover .animated-list__arrow,
+.animated-list__item:focus-visible .animated-list__arrow,
+.animated-list__item--selected .animated-list__arrow {
+  transform: translate(0.15rem, -0.15rem);
+}
+
+@keyframes animated-list-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .animated-list__item {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    min-height: 0;
+    padding: 1.1rem 0.9rem;
+  }
+
+  .animated-list__title {
+    font-size: 0.95rem;
+  }
+
+  .animated-list__description {
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-list__item {
+    animation: none;
+    transition: none;
+  }
+}

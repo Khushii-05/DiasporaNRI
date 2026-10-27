@@ -1,0 +1,149 @@
+.social-follow-loop {
+  overflow: hidden;
+  padding: 1.5rem 0 4rem;
+  background: #020617;
+  color: #f8fafc;
+}
+
+.social-follow-loop__heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 80rem;
+  margin: 0 auto 1.5rem;
+  padding: 0 1.5rem;
+}
+
+.social-follow-loop__heading h2 {
+  flex: none;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.social-follow-loop__line {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.5));
+}
+
+.social-follow-loop__line:last-child {
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.5), transparent);
+}
+
+.social-follow-loop__viewport {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.social-follow-loop__track {
+  display: flex;
+  width: max-content;
+  animation: social-follow-loop-scroll 24s linear infinite;
+}
+
+.social-follow-loop__group {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.social-follow-loop__item {
+  display: inline-flex;
+  min-width: 8.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.social-follow-loop__item:hover,
+.social-follow-loop__item:focus-visible {
+  border-color: var(--social-color, #22d3ee);
+  background: rgba(30, 41, 59, 0.95);
+  transform: translateY(-2px);
+}
+
+.social-follow-loop__item--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.social-follow-loop__icon {
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--social-color);
+}
+
+.social-follow-loop__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.social-follow-loop__icon svg rect,
+.social-follow-loop__icon svg circle:first-of-type {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.social-follow-loop__fill {
+  fill: currentColor;
+}
+
+.social-follow-loop__name {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.social-follow-loop:hover .social-follow-loop__track,
+.social-follow-loop:focus-within .social-follow-loop__track {
+  animation-play-state: paused;
+}
+
+@keyframes social-follow-loop-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .social-follow-loop {
+    padding-bottom: 3rem;
+  }
+
+  .social-follow-loop__heading {
+    padding-inline: 1rem;
+  }
+
+  .social-follow-loop__group {
+    gap: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .social-follow-loop__item {
+    min-width: 7.7rem;
+    padding: 0.6rem 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-follow-loop__track {
+    animation: none;
+  }
+}

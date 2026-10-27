@@ -4,6 +4,7 @@ import { ContentUpdateProvider } from './context/ContentUpdateContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 import Header from './components/Header';
+import AnnouncementBar from './components/AnnouncementBar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -28,7 +29,9 @@ function App() {
         <ContentUpdateProvider>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1 pt-20 lg:pt-32">
+            <div className="h-24 shrink-0 sm:h-28 lg:h-[120px]" aria-hidden="true" />
+            <AnnouncementBar />
+            <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

@@ -8,6 +8,7 @@ import AdminContactSubmissions from '../components/AdminContactSubmissions';
 import AdminContentManager from '../components/AdminContentManager';
 import AdminPartnershipManager from '../components/AdminPartnershipManager';
 import AdminBookingManager from '../components/AdminBookingManager';
+import AdminAnnouncementManager from '../components/AdminAnnouncementManager';
 
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
@@ -27,6 +28,7 @@ export default function Dashboard() {
 
   const tabs = [
     { id: 'overview', label: 'Overview', iconName: 'list' },
+    { id: 'announcements', label: 'Announcements', iconName: 'bell' },
     { id: 'media', label: 'Media', iconName: 'media' },
     { id: 'achievements', label: 'Achievements', iconName: 'award' },
     { id: 'content', label: 'Content', iconName: 'edit' },
@@ -40,7 +42,7 @@ export default function Dashboard() {
       {/* Header */}
       <header className="bg-slate-800/50 border-b border-blue-400/30 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center flex-wrap gap-3">
-          <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">
             Admin Dashboard
           </h1>
           <div className="flex items-center gap-3 sm:gap-6 flex-wrap w-full sm:w-auto justify-end">
@@ -144,6 +146,8 @@ export default function Dashboard() {
           )}
 
           {activeTab === 'media' && <div className="p-8"><AdminMediaManager /></div>}
+
+          {activeTab === 'announcements' && <div className="p-8"><AdminAnnouncementManager /></div>}
 
           {activeTab === 'achievements' && <div className="p-8"><AdminAchievementsManager /></div>}
 

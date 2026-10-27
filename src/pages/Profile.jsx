@@ -311,7 +311,7 @@ export default function Profile() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white py-12 sm:py-20">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
         <div className="bg-slate-800/50 border border-blue-400/30 rounded-lg p-6 sm:p-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-white">
             My Profile
           </h1>
           <p className="text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base">Update your account details and profile picture</p>

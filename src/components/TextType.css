@@ -1,0 +1,37 @@
+.text-type {
+  position: relative;
+  display: inline-block;
+  min-height: 1.15em;
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: 0.1em;
+  background-color: currentColor;
+  animation: text-type-blink 0.9s steps(1) infinite;
+}
+
+.text-type__cursor--bar {
+  width: 0.07em;
+  height: 1em;
+  vertical-align: -0.08em;
+  border-radius: 999px;
+}
+
+.text-type__cursor--underscore {
+  width: 0.55em;
+  height: 0.08em;
+  vertical-align: 0.02em;
+}
+
+@keyframes text-type-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-type__cursor {
+    animation: none;
+  }
+}

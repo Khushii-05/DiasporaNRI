@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { usePageContent } from '../hooks/usePageContent';
+import TextType from '../components/TextType';
+import SocialFollowLoop from '../components/SocialFollowLoop';
 
 export default function Home() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const { content, getValue } = usePageContent('home');
+  const { getValue } = usePageContent('home');
 
   const handlePartnershipClick = (e) => {
     e.preventDefault();
@@ -20,58 +21,44 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-white">
-        <div className="grid grid-cols-1 gap-8 sm:gap-12 items-center">
-          <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
-              {currentUser
+      <section
+        className="relative isolate overflow-hidden text-white"
+        style={{ backgroundImage: 'url("/leagal%20stock%20photo.jpg")', backgroundPosition: 'center right', backgroundSize: 'cover' }}
+      >
+        <div className="absolute inset-0 -z-10 bg-slate-950/55" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/75 via-slate-950/55 to-slate-900/20" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-slate-950/10 via-transparent to-slate-950/45" />
+
+        <div className="relative mx-auto grid min-h-[520px] max-w-7xl grid-cols-1 items-center px-4 py-20 sm:px-6 sm:py-24 lg:min-h-[620px] lg:grid-cols-[minmax(0,1.05fr)_minmax(260px,0.65fr)]">
+          <div className="max-w-3xl">
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300/90">
+              Trusted support across borders
+            </p>
+            <TextType
+              as="h1"
+              text={currentUser
                 ? getValue('hero_title_logged_in', `Welcome, ${currentUser.displayName || currentUser.email}!`)
                 : getValue('hero_title', 'Welcome to DiasporaNRI')}
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
+              typingSpeed={55}
+              pauseDuration={2200}
+              loop={false}
+              className="mb-5 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+            />
+            <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg md:text-xl">
               {getValue(
                 'hero_body',
                 'DiasporaNRI.com is your trusted platform providing comprehensive support services for NRIs and global Indians. Manage your property, legal matters, banking, investments, family support, and more with professional assistance and peace of mind.'
               )}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <a href="/contact" className="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 sm:px-8 py-3 rounded-lg font-semibold text-center sm:text-left hover:shadow-lg hover:shadow-blue-500/50 transition">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <a href="/contact" className="rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-3 text-center font-semibold shadow-lg shadow-blue-950/30 transition hover:from-blue-400 hover:to-cyan-400 sm:px-8 sm:text-left">
                 {getValue('cta_primary', 'Get Started')}
               </a>
-              <a href="/about" className="border-2 border-blue-400 px-6 sm:px-8 py-3 rounded-lg font-semibold text-center sm:text-left hover:bg-blue-400 hover:text-white transition">
+              <a href="/about" className="rounded-lg border border-slate-400/70 bg-slate-950/20 px-6 py-3 text-center font-semibold backdrop-blur-sm transition hover:border-cyan-300 hover:bg-slate-900/60 sm:px-8 sm:text-left">
                 {getValue('cta_secondary', 'Learn More')}
               </a>
             </div>
           </div>
-
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <h2 className="text-4xl font-bold text-center text-white mb-16">
-          {getValue('features_title', 'Why Choose Us')}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              title: getValue('feature_1_title', 'Property Management'),
-              desc: getValue('feature_1_desc', 'Expert assistance for property & land matters')
-            },
-            {
-              title: getValue('feature_2_title', 'Legal Support'),
-              desc: getValue('feature_2_desc', 'Professional legal guidance and documentation')
-            },
-            {
-              title: getValue('feature_3_title', 'Business & Finance'),
-              desc: getValue('feature_3_desc', 'Banking, investment & business setup support')
-            }
-          ].map((item, idx) => (
-            <div key={idx} className="bg-slate-800/50 border border-blue-400/30 p-8 rounded-lg hover:border-blue-400/60 transition">
-              <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-              <p className="text-gray-400">{item.desc}</p>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -106,9 +93,9 @@ export default function Home() {
                 Apply for Partnership
               </button>
             </div>
-            <div className="bg-slate-800/50 rounded-lg p-8">
-              <h3 className="text-xl font-bold text-white mb-6">Partnership Categories</h3>
-              <ul className="space-y-2 text-gray-300">
+            <div className="border-l border-cyan-400/40 pl-6 sm:pl-8">
+              <h3 className="mb-6 text-xl font-bold text-white">Partnership Categories</h3>
+              <ul className="grid gap-3 text-gray-300 sm:grid-cols-2">
                 <li className="flex items-center gap-2">
                   <span className="text-cyan-400">•</span> Business Associates
                 </li>
@@ -135,6 +122,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <SocialFollowLoop />
     </div>
   );
 }

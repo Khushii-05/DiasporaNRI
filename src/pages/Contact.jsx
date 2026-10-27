@@ -6,6 +6,7 @@ import { usePageContent } from '../hooks/usePageContent';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BookingCalendar from '../components/BookingCalendar';
+import SocialFollowLoop from '../components/SocialFollowLoop';
 
 export default function Contact() {
   const { currentUser } = useAuth();
@@ -261,10 +262,10 @@ export default function Contact() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <div className="mb-12 sm:mb-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 text-white">
             {getValue('contact_title', 'Get In Touch')}
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-white">
             {getValue('contact_subtitle', "We'd love to hear from you. Send us a message!")}
           </p>
         </div>
@@ -302,17 +303,6 @@ export default function Contact() {
               </div>
             ))}
 
-            {/* Social Links */}
-            <div className="bg-slate-800/50 border border-blue-400/30 p-6 rounded-lg">
-              <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
-              <div className="flex gap-4">
-                {['LinkedIn', 'X', 'Facebook', 'Instagram'].map((social, idx) => (
-                  <a key={idx} href="#" className="text-blue-300 hover:text-blue-200 transition">
-                    {social}
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Tabs Section */}
@@ -809,6 +799,7 @@ export default function Contact() {
         )}
 
       </div>
+      <SocialFollowLoop />
     </div>
   );
 }

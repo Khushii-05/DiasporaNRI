@@ -11,6 +11,7 @@ const { achievementsRouter } = require('./routes/achievements');
 const { profileRouter } = require('./routes/profile');
 const { partnershipRouter } = require('./routes/partnership');
 const { bookingRouter } = require('./routes/booking');
+const { announcementsRouter } = require('./routes/announcements');
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;
@@ -36,6 +37,7 @@ app.use('/achievements', achievementsRouter);
 app.use('/profile', profileRouter);
 app.use('/partnership', partnershipRouter);
 app.use('/booking', bookingRouter);
+app.use('/announcements', announcementsRouter);
 
 // Serve frontend static files
 const frontendDistPath = path.join(__dirname, '../dist');

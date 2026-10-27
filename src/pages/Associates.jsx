@@ -80,10 +80,10 @@ export default function Associates() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <div className="mb-12 sm:mb-12 sm:mb-16">
-          <h1 className="text-4xl sm:text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white">
             {getValue('associates_title', 'Our Professional Network')}
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-white">
             {getValue('associates_subtitle', 'Trusted experts and verified professionals across India')}
           </p>
         </div>
@@ -146,5 +146,3 @@ export default function Associates() {
     </div>
   );
 }
-
-
